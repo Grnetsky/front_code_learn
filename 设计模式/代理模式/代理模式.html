@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片懒加载</title>
+    <style>
+        .box {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .item {
+            width: 200px;
+            margin: 6px;
+        }
+        .item2 {
+            width: 300px;
+            margin: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+</div>
+</body>
+
+<script>
+let box = document.querySelector(".box")
+for(let i = 0 ;i<100;i++){
+    let item = document.createElement('img')
+    item.className = ['item','item2'].find((item,index)=>{
+        Math.random()
+    })
+    item.src = './p.jpeg'
+    box.appendChild(item)
+}
+
+</script>
+</html>

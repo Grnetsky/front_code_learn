@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mutationObserver</title>
+</head>
+<body>
+<div></div>
+</body>
+<script>
+    let mo = new MutationObserver((...arg)=>{  // dom被修改后异步调用
+        console.log('body has changed',arg)})
+    mo.observe(document.body,{ attributes:true })  // 观察参数
+    document.body.className = 'main'  // 修改dom
+</script>
+</html>
+

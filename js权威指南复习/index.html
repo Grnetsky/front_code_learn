@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #canvas {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+</body>
+<script>
+    const canvas = document.getElementById("canvas")
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    const gl = canvas.getContext('webgl') // 使用3纬画笔
+    gl.clearColor(1,0,0,1) // rgba  0-1
+    //使用之前指定的颜色 清空绘图区
+    gl.clear(gl.COLOR_BUFFER_BIT)
+</script>
+</html>

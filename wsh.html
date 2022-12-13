@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>难过</title>
+</head>
+<body>
+</body>
+<script>
+    function render(vnode,container) {
+        console.log(vnode,container)
+        if(typeof vnode.tag === 'string'){
+            mountElement(vnode,container)
+        }else if(typeof vnode.tag === 'function'){   // 渲染函数组件
+            mountFuncComponent(vnode,container)
+        }else if(typeof vnode.tag === 'object'){     // 渲染对象组件
+            mountObjComponent(vnode,container)
+        }
+    }
+
+    function mountFuncComponent(vnode,container) {  //组件渲染函数  所谓组件本质就是返回虚拟dom的一个方法
+        const subtree = vnode.tag() // 返回虚拟dom
+        render(subtree,container  )  // 渲染虚拟dom
+    }
+    function mountObjComponent(vnode,container) {
+        const subtree = vnode.tag.render()
+        render(subtree,container)
+    }
+
+    function mountElement(vnode,container){
+        const el = document.createElement(vnode.tag)   // 创建元素
+        for(let key in vnode.props){
+            if(/^on/.test(key)){
+                el.addEventListener(key.slice(2).toLowerCase(),vnode.props[key]) // 绑定事件
+            }else {
+                el[key] = vnode.props[key]  // 绑定其他属性
+                console.log(vnode.props[key])
+            }
+
+        }
+        if(typeof vnode.children == 'string'){   //children位string 则为文本节点
+            el.appendChild(document.createTextNode(vnode.children))
+        }else if (Array.isArray(vnode.children)){  //若为数组则 递归创建元素
+            vnode.children.forEach((item,index)=>render(item,el))
+
+        }
+        container.appendChild(el)  // 将创建的元素挂载到挂在点下
+    }
+    let vnode = {  //虚拟dom
+        tag:"div", // 标签名
+        props:{   // 属性
+            onClick: ()=>{
+                console.log("onClick")
+            },
+            className:"div"
+        },
+        children:[{
+            tag:"span",
+            props:{
+                className: "span"
+            },
+            children: "span"
+        }]
+    }
+
+    let funcComponent = function () {   // 函数组件
+        return {
+            tag:"div", // 标签名
+            props:{   // 属性
+                onClick: ()=>{
+                    console.log("onClick")
+                },
+                className:"div"
+            },
+            children:[{
+                tag:"span",
+                props:{
+                    className: "span"
+                },
+                children: "span"
+            }]
+        }
+    }
+
+
+    let objComponent = {   // 对象组件
+        render(){
+            return {
+                tag:"div", // 标签名
+                props:{   // 属性
+                    onClick: ()=>{
+                        console.log("onClick")
+                    },
+                    className:"div"
+                },
+                children:[{
+                    tag:"span",
+                    props:{
+                        className: "span"
+                    },
+                    children: "span"
+                }]
+            }
+        }
+    }
+    render(vnode,document.body)
+
+
+
+</script>
+</html>
