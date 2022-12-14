@@ -63,6 +63,7 @@
                 case "file":{
                     let link =  URL.createObjectURL( new File([reader.result],"new",{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}))
                     html = `<a download href="${link}">下载</a>`
+
                     break
                 }
             }
