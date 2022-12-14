@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>file and blob</title>
+    <style>
+        * {
+            transition:width ease 20ms;
+        }
+        :root {
+            --progress:0%;
+        }
+        .progress {
+            width:100%;
+            height: 30px;
+            border: 2px solid deepskyblue;
+            border-radius: 20px;
+            position: relative;
+        }
+        .progress::after {
+            content: "";
+            position: absolute;
+            width: var(--progress);
+            height: inherit;
+            background-color: red;
+            z-index:-1;
+            border-radius: 20px;
+            transition: all 2s;
+            -o-transition: all 2s;
+            -moz-transition: all 2s;
+            -webkit-transition: all 2s;       /*TODO 注意transition兼容性 写上厂商前缀  似乎在一般元素上运行没问题 但是在伪元素上就要配置兼容性*/
+        }
+    </style>
+</head>
+<body>
+<input id="file" type="file" value="请选择文件">
+<div class="progress"></div>
+<div id="output"></div>
+</body>
+<script>
+    let fileDom = document.querySelector("#file")
+    let output = document.querySelector("#output")
+    fileDom.addEventListener("change",(event)=>{
+        console.log(event.target.files)
+        let file = event.target.files[0]
+        let reader = new FileReader()
+        // reader.readAsDataURL(file)
+        // console.log(reader.result)
+        reader.onprogress = function (event) {
+            document.documentElement.style.setProperty('--progress',(event.loaded/event.total)*100+"%")  //设置css变量 (进度条)
+        }
+        reader.onload = function () {
+            console.log(reader.result)
+            let html = ''
+            switch (type){
+                case "image":{
+                    html=`<img src='${reader.result}'>`
+                    break
+                }
+                case "file":{
+                    let link =  URL.createObjectURL( new File([reader.result],"new",{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}))
+                    html = `<a download href="${link}">下载</a>`
+                    break
+                }
+            }
+            output.innerHTML = html
+        }
+        let type = ''
+        if(/image/.test(file.type)){
+            reader.readAsDataURL(file)
+            type = "image"
+        }else {
+            reader.readAsArrayBuffer(file)
+            type = "file"
+        }
+    })
+
+</script>
+</html>

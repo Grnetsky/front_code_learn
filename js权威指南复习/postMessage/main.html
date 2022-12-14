@@ -20,7 +20,6 @@ postMessage也可用于不同工作线程之间通信
         // 是用frame对象自己postMessage
         // 然后再frame的文件中监听message事件
         // 并非是main.html发给 frame.html  是自己对象给自己发
-
     }
 window.onload = function () {
     window.addEventListener("message",(data)=>{
