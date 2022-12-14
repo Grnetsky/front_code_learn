@@ -1,22 +1,23 @@
+//TODO 此对象在web中已禁用
 const workerScript =
-    `
+
 self.onmessage =
 ({data})=>{
     const view = new Uint32Array(data)
     for (let i = 0;i<1E6;i++){
-        view[0]+=1 // v
+      //   Atomics.add(view,0,1) // 原子性  线程安全
+        view[0]+=1
     }
-    
+
     self.postMessage(null)
 }
-`
+
 const workerScriptBlobUrl = URL.createObjectURL(new Blob([workerScript]))
 
 const  workers = []
 for (let i = 0;i< 4 ;i++){
     workers.push(new Worker(workerScriptBlobUrl))
 }
-
 let responseCount = 0
 
 for (const worker of workers ){

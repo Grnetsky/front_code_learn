@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><frame></title>
+</head>
+<body>
+<H1>This is FrameWindow</H1>
+</body>
+<script>
+    window.addEventListener("message",(data)=>{
+        console.log(data)
+        //TODO data 属性: data.data:接受的数据（一般为字符串，可以为其他数据格式但是看浏览器兼容性） data.origin：发送方源   data.source: 发送方window对象代理，若为同源 则为window对象本身  一般使用其中的postMessage方法
+        data.source.document.querySelector("h1").innerText = '对方已监听到'
+        data.source.postMessage("data")
+    })
+</script>
+</html>
