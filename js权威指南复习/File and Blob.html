@@ -46,6 +46,7 @@
     fileDom.addEventListener("change",(event)=>{
         console.log(event.target.files)
         let file = event.target.files[0]
+            window.fileurl = URL.createObjectURL(file)
         let reader = new FileReader()
         // reader.readAsDataURL(file)
         // console.log(reader.result)
@@ -61,15 +62,14 @@
                     break
                 }
                 case "file":{
-                    let link =  URL.createObjectURL( new File([reader.result],"new",{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}))
-                    html = `<a download href="${link}">下载</a>`
-
+                    html = `<a download href="${window.fileurl}">下载${window.suffix}</a>`
                     break
                 }
             }
             output.innerHTML = html
         }
         let type = ''
+         window.suffix = (file.name).match(/\.(?<suffix>.*)/).groups.suffix
         if(/image/.test(file.type)){
             reader.readAsDataURL(file)
             type = "image"
