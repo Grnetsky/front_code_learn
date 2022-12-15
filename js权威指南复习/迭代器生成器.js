@@ -42,6 +42,7 @@ let it = i[Symbol.iterator]()
 console.log([...i],it.next(),it.next())
 
 
+// 生成器
 function* creator() {
     yield 1
     yield 2
