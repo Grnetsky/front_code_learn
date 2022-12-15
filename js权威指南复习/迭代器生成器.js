@@ -53,4 +53,4 @@ let a = creator()
 console.log(a.next().value)  //1
 console.log(a.next().value)  //2
 console.log(a.next().value)  //3
-console.log(a.next().done)   //4
+console.log(a.next().done)   //true
