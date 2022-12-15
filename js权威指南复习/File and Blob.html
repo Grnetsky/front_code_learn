@@ -47,6 +47,11 @@
 <div id="sliceShow"></div>
 </body>
 <script>
+
+    // new Blob(array,options)    array:由ArrayBuffer 由ArrayBufferView Blob等构成的数组   options:   {type:mima类型,trans
+    // var myFile = new File(bits, name[, options]); bits一个包含ArrayBuffer，ArrayBufferView，Blob，或者 DOMString 对象的 Array — 或者任何这些对象的组合。这是 UTF-8 编码的文件内容。name USVString，表示文件名称，或者文件路径。
+    // options 可选选项对象，包含文件的可选属性。可用的选项如下：type: DOMString，表示将要放到文件中的内容的 MIME 类型。默认值为 "" 。lastModified: 数值，表示文件最后修改时间的 Unix 时间戳（毫秒）。默认值为 Date.now()。
+    // createObjectURL 将传入的file或者blob返回一个指向内存地址中的字符串  可配合a链接下载
     let fileDom = document.querySelector("#file")
     let progressDOM = document.querySelector(".progress")
     let output = document.querySelector("#output")

@@ -3,8 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>读取拖拽文件</title>
+    <style>
+        .target{
+            width: 500px;
+            height: 500px;
+            border: 2px solid red;
+            text-align: center;
+            line-height: 500px;
+        }
+    </style>
+
 </head>
 <body>
-<div></div>
+<div class="target">文件拖进来 <span>132</span>
+</div>
 </body>
+<script>
+    let target = document.querySelector(".target")
+    target.addEventListener("dragenter",(e)=>{   //TODO 监听拖入时间
+        e.preventDefault() //
+        console.log("文件已拖入")
+        console.log(e)
+    })
+    target.addEventListener("dragover",(e)=>{  //TODO 监听拖入中事件
+        e.preventDefault()
+        console.log("文件拖入中")
+        console.log(e)
+    })
+    target.addEventListener("drop",(e)=>{  // TODO 监听 放下事件
+        console.log("文件已放入")
+        e.preventDefault()
+        console.log(e)
+        let files = e.dataTransfer.files   //文件列表对象
+        console.log(files)
+        for(let i = 0;i<files.length;i++){
+            console.log(files[i].name,files[i].type,files[i].size)  // 查看文件名 文件类型  文件大小字节
+
+            //
+        }
+    })
+</script>
 </html>
