@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>notification</title>
+</head>
+<body>
+<h1>notification</h1>
+</body>
+<script>
+
+    let n = new Notification("测试通知",{
+        body:'内容',
+        image:'./icon.ico',
+        vibrate:true
+    })
+    Notification.requestPermission().then((result)=>{
+        console.log(result)
+    })
+    //事件
+    n.onshow = ()=>{}
+    n.onclick = ()=>{}
+    n.onclose = ()=>{}
+    n.onerror = ()=>{}
+</script>
+</html>
