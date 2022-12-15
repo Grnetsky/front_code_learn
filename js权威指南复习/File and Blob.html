@@ -19,10 +19,14 @@
             border: 2px solid deepskyblue;
             border-radius: 20px;
             position: relative;
+            text-align: center;
+            line-height: 30px;
         }
         .progress::after {
             content: "";
             position: absolute;
+            top: 0;
+            left: 0;
             width: var(--progress);
             height: inherit;
             background-color: red;
@@ -39,19 +43,23 @@
 <input id="file" type="file" value="请选择文件">
 <div class="progress"></div>
 <div id="output"></div>
+<button id="sliceFile">点击切割显示文件</button>
+<div id="sliceShow"></div>
 </body>
 <script>
     let fileDom = document.querySelector("#file")
+    let progressDOM = document.querySelector(".progress")
     let output = document.querySelector("#output")
     fileDom.addEventListener("change",(event)=>{
         console.log(event.target.files)
         let file = event.target.files[0]
-            window.fileurl = URL.createObjectURL(file)
+            window.fileurl = URL.createObjectURL(file)   // TODO createObjectURL 将传入的file或者blob返回一个指向内存地址中的字符串
         let reader = new FileReader()
         // reader.readAsDataURL(file)
         // console.log(reader.result)
         reader.onprogress = function (event) {
-            document.documentElement.style.setProperty('--progress',(event.loaded/event.total)*100+"%")  //设置css变量 (进度条)
+            document.documentElement.style.setProperty('--progress',(event.loaded/event.total)*100+"%")
+            progressDOM.innerHTML = (event.loaded/event.total).toFixed(1)*100+"%"//设置css变量 (进度条) // toFiexd()四舍五入
         }
         reader.onload = function () {
             console.log(reader.result)
@@ -78,6 +86,28 @@
             type = "file"
         }
     })
+
+    // blob
+    let sliceDom = document.querySelector("#sliceFile")
+    let sliceShow = document.querySelector("#sliceShow")
+    function* sliceFileGenerator(){
+        let file = fileDom.files[0]
+        for (let i = 5 ;i<file.size;i+=5){
+            yield file.slice(i-5,i)
+        }
+    }
+    let blob = sliceFileGenerator()
+    sliceDom.addEventListener("click",()=>{
+        let reader = new FileReader()
+        if(!blob.next().done){reader.readAsText(blob.next().value)}else{
+            console.log(window.fileurl)
+            window.URL.revokeObjectURL(window.fileurl)   //TODO 释放与之关联的内存
+        }
+        reader.onload = ()=>{
+            sliceShow.innerHTML += reader.result
+        }
+    })
+
 
 </script>
 </html>
