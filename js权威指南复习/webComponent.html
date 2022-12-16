@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webComponent</title>
+</head>
+<body>
+<template id="foo">
+    <div>i am div
+    </div>
+</template>
+</body>
+<script>
+    let fragment = document.querySelector("#foo")
+    let fragDocument = fragment.content  // 通过访问template对象上的content属性 获取对document-fragment的引用
+    console.log(fragDocument.querySelector("div").textContent)
+
+</script>
+</html>

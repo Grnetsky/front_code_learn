@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>前段换肤解决方案</title>
+    <link rel="stylesheet"  href="" id="skinCss">
+    <style>
+        html {
+            transition: background-color ease 1s;
+        }
+        html {
+            background-color: var(--html-color);
+        }
+    </style>
+</head>
+<body>
+<button onclick="toggleSkin()">
+    点击更换皮肤
+</button>
+</body>
+<script>
+    let skinIsLight = true
+    function toggleSkin() {
+        skinIsLight = !skinIsLight
+        let styleDom = document.querySelector("#skinCss")
+        if(skinIsLight){
+            console.log("亮")
+            styleDom.setAttribute('href',"./light.css")
+        }else{
+            console.log("暗")
+            styleDom.setAttribute('href',"./dark.css")
+        }
+
+    }
+</script>
+</html>
