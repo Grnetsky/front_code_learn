@@ -3,17 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <title>webComponent</title>
+    <style>
+        p {
+            color:blue !important;
+        }
+    </style>
 </head>
 <body>
+<div id="ele"></div>
 <template id="foo">
     <div>i am div
     </div>
 </template>
+<foo-ele>this is web component</foo-ele>
+<foo-ele init=20></foo-ele>
+
+
+
+<div id="slot"> </div>
 </body>
 <script>
     let fragment = document.querySelector("#foo")
+    let ele = document.querySelector("#ele")
     let fragDocument = fragment.content  // 通过访问template对象上的content属性 获取对document-fragment的引用
     console.log(fragDocument.querySelector("div").textContent)
+    let f = document.createElement("p").innerText = 123 // 返回值为123
+    console.log(f)
+    // DocumentFragment()对象
+    const fragmentChild = new DocumentFragment()
+    fragmentChild.appendChild(document.createElement('p'))
+    fragmentChild.appendChild(document.createElement('p'))
+    fragmentChild.appendChild(document.createElement('p'))
+    fragmentChild.appendChild(document.createElement('p'))
+    ele.appendChild(fragmentChild)  // 批量插入元素  只重排一次
 
+    // 影子DOM  （类似创建一个局部的html css作用域  将css样式和选择符限制在影子dom树中而不是整个顶级dom树  影子dom和html template类似 但是区别在于影子dom回实际渲染出来）
+    for(let i of ['red','blue','tomato']){
+        const div = document.createElement('div')
+        const shadowDom = div.attachShadow({mode:'open'})  // 开启安全模式（虽然这并不安全 ）
+        document.body.append(div)
+
+        shadowDom.innerHTML = `<p>my color is ${i}</p> <style>p{color:${i}</style>`
+    } // html元素可以在影子dom中随意移动
+
+
+    // 合成影子与dom槽位
+    const slot = document.querySelector("#slot")
+    slot.innerHTML = `<p onclick="clickDom()">合成与影子dom槽位</p><p slot="bar">进入bar槽位</p><p slot="foo">进入foo槽位</p>`
+
+    setTimeout(()=>{
+        const a = slot.attachShadow({mode:"open"})
+            .innerHTML = `<p>影子dom渲染出来啦
+                                <slot></slot>  <!--这是slot 将原来在div中的html元素渲染到slot插槽中><-->
+                                <slot name="bar" onclick="clickShadow()"></slot>  <!-- 命名槽位><-->
+                                <slot name="foo"></slot>
+                          </p>`},1000) //会发现p标签在1000ms后消失  因为影子dom一添加到元素中，浏览器就会赋予它最高的优先级  会先渲染它的内容而不是原来的文本 若加上slot插槽 name就会将外部html的投射创建到影子dom内部
+
+        // 事件重定向 (不太懂 好像和普通元素没区别)
+    function clickDom(e) {
+        console.log("click dom ",e)
+    }
+    function clickShadow(e) {
+        console.log('click shadow',e)
+    }
+
+    // web components
+    class FooElement extends HTMLElement {
+        constructor() {
+            super();
+            console.log("this is FooElement")
+            const shadowDom = this.attachShadow({mode:"open"})  //  获取影子dom     本质是通过影子dom来创建一个隔离的作用域
+            this.count = this.getAttribute("init") | undefined  // 通过属性传值
+            shadowDom.innerHTML = `
+                <slot>123</slot>
+                <button>
+                数量为${this.count}
+                </button>
+
+                <style>
+                button {
+                    width: 60px;
+                    height: 80px;
+                    background-color:#eee;
+                    border: 2px solid tomato;
+                }
+            </style>`
+            this.btn = this.shadowRoot.querySelector("button")
+                this.btn.addEventListener("click", ()=>{  // 监听点击事件
+                    this.count++
+            })
+        }
+        get count(){
+            return this.getAttribute('count')?this.getAttribute('count'):0  //获取属性 getAttribute
+        }
+        set count(count){
+            return this.setAttribute('count',count) // 设置属性 setAttribute
+        }
+        static get observedAttributes(){
+            return ['count']   //监听变化的属性  会自动触发attributeChangedCallback
+        }
+        attributeChangedCallback(name,oldVlue,newValue){
+            this.btn.textContent = newValue   //当可观察属性值发生改变时触发
+        }
+    }
+    customElements.define('foo-ele',FooElement)
 </script>
 </html>
