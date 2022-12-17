@@ -102,8 +102,18 @@
         static get observedAttributes(){
             return ['count']   //监听变化的属性  会自动触发attributeChangedCallback
         }
-        attributeChangedCallback(name,oldVlue,newValue){
-            this.btn.textContent = newValue   //当可观察属性值发生改变时触发
+        //生命周期
+        attributeChangedCallback(name,oldVlue,newValue){    //当可观察属性列表发生改变时触发
+            this.btn.textContent = newValue
+        }
+        connectedCallback(){   // 每次将这个自定义元素实例添加到dom中时调用
+            console.log("connectedCallback")
+        }
+        disconnectedCallback(){   // 每次将这个自定义元素实例从dom中移除时调用
+            console.log("disconnectedCallback")
+        }
+        adoptedCallback(){   //在通过document.adoptNode()将这个元素实例移动到新文档对象时调用
+            console.log("adoptedCallback")
         }
     }
     customElements.define('foo-ele',FooElement)
