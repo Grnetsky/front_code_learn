@@ -7,4 +7,32 @@
 <body>
 
 </body>
+<script type="application/javascript">
+    fetch("http://127.0.0.1:8000",{
+        method:"post", // 请求方法
+        body:JSON.stringify({username:"fetch1",password:"123123123"}),  // 请求体  必须为Blob BufferArray FormData URLSearchParams ReadableStream 或者String的实例
+        cache:"Default",  //设置http缓存的交互  Default no-store reload no-cache force-cache only-if-cached
+        credentials:"omit", //omit:不带cookie  same-origin:同源携带cookie   include：都携带cookie
+        headers:{}, // 必须是Headers对象实例  或者常规键值对对象
+        integrity:'',// TODO:用于强制子资源的完整性 必须是包含资资源完整性的字符串 默认为''
+        keepalive:false,//TODO:指示浏览器允许请求存在的时间超出页面生命周期
+        mode:'cors',//用于指定请求模式 将决定来自跨域请求的响应是否有效，以及客户端可以读取多少响应  'cors':   'no-cors':不允许发生预检请求 'same-origin：任何跨域请求都不允许发生
+        redirect:'follow',// 指定如何处理重定向 follow:跟踪重定向 error：重定向请求时错误 manual:不跟踪重定向 而是返回opaqueredirect类型的相应，同时任然暴露期望重定向的ur 允许手动跟踪重定向
+        referrer:"no-referrer",
+        referrerPolicy:'no-referrer',
+        //signal:'' ,用于支持通过AbortController终端fetch请求
+    }).then((response)=>{  //无论服务返回多少状态码  都会执行then函数  （系统级的传输协议已经完成了一次数据传输）
+        console.log(response)   // 请求状态码在这里面处理
+        response.blob()
+        response.text().then((text)=>{
+            console.log(text)
+            console.log(response.url)  // 获取请求的url
+        })
+            .catch((err)=>{   //系统级别响应错误
+                console.log(err)
+            })
+    })
+
+
+</script>
 </html>
