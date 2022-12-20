@@ -8,6 +8,10 @@
 
 </body>
 <script type="application/javascript">
+    let abortController = new AbortController()
+    setTimeout(()=>{
+        abortController.abort()  // 中断所有网络传输  中断后会导致fetch被拒绝  （即执行catch操作）
+    },2000)
     fetch("http://127.0.0.1:8000",{
         method:"post", // 请求方法
         body:JSON.stringify({username:"fetch1",password:"123123123"}),  // 请求体  必须为Blob BufferArray FormData URLSearchParams ReadableStream 或者String的实例
