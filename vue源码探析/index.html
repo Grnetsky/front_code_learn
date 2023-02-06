@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script src="./响应系统.js"></script>
+<script>
+    obj.a = 0
+    effect(()=>{
+        console.log("副作用函数执行了")
+        document.body.innerHTML = obj.ok?obj.text:"not"
+    })
+
+
+</script>
+</html>

@@ -1,8 +1,8 @@
 const bucket = new WeakMap()   // 消息队列
 let activeEffect
-var data = {}
+var data = {ok:true,text:"hello world"}
 let obj = new Proxy(data,{
-    set(target, p, value, receiver) {  // 更改属性  =》执行副作用函数\
+    set(target, p, value, receiver) {  // 新增或者更改属性  =》执行副作用函数\
         console.log(`set ${target} ${p} ${value}`)
         trigger(target,p)
         return Reflect.set(target,p,value) // 设置值
@@ -20,10 +20,11 @@ let obj = new Proxy(data,{
 function track(target,p) {
     if(!activeEffect)return Reflect.get(target,p)
     let depMaps = bucket.get(target) // 获取depMaps
-    if(!depMaps)depMaps.set(target,(depMaps = new Map())) // 不存在则创建 TODO：注意写法
+    if(!depMaps)bucket.set(target,(depMaps = new Map())) // 不存在则创建 TODO：注意写法
     let deps = depMaps.get(p) // 获取对象对应属性上的副作用函数队列
-    if (!deps)deps = depMaps.set(p,(deps = new Set())) // 当队列不存在 则创建队列
+    if (!deps)depMaps.set(p,(deps = new Set())) // 当队列不存在 则创建队列
     deps.add(activeEffect) // 将副作用函数注册到队列中
+    console.log(activeEffect,"已经被加入到",target,'的',p)
 }
 
 function trigger(target,p){
