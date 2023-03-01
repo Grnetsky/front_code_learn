@@ -43,6 +43,7 @@ class BinarySearchTree{
     }
     // insert 插入方法
     insert(key){
+        //构造一个新的节点
         let newNode = new Node(key)
         //判断根节点是否有值
         if(!this.root){
