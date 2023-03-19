@@ -177,4 +177,15 @@ MyPromise.race = function (promises) {
     });
 };
 
+MyPromise.prototype.any = function (promises) {
 
+}
+
+
+let a = function () {
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{resolve(2)},2000)
+    })
+}
+
+a().then((value)=>{console.log(value);return value}).then((value)=>{console.log(value);return value}).then((value)=>{console.log(value);return value}).then((value)=>{console.log(value);return value})

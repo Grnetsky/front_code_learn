@@ -15,7 +15,7 @@ singleton.getInstance = function (name) {
 }
 let o1 = singleton.getInstance('hhh')   //
 let o2 = singleton.getInstance('aaa')   // 这个本质上没用
-console.log(o2 == o1) // true
+console.log(o2 === o1) // true
 console.log(o2.name,o1.name) // hhh hhh
 
 // 类的单例模式

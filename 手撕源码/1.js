@@ -14,3 +14,10 @@ for (i in obj){
 }
 
 console.log(obj)
+let arr = [1,2,3]
+for (let i of arr){
+    arr.push(i++)
+    console.log(i)
+}
+
+

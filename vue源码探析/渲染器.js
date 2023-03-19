@@ -75,7 +75,7 @@ let funcComponent = function () {   // 函数组件
 
 
 let objComponent = {   // 对象组件
-    render(){   // 在vue的文件中 是通过编译器将 <template>标签里的内容转换为render函数返回虚拟dom  最后通过render渲染器将虚拟dom转换为真实dim
+    render(){   // 在vue的文件中 是通过编译器将 <template>标签里的内容转换为render函数返回虚拟dom  最后通过render渲染器将虚拟dom转换为真实dom
         return {
             tag:"div", // 标签名
             props:{   // 属性

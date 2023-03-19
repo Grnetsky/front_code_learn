@@ -42,3 +42,20 @@ let p = new Proxy(g)
 b.sendFlower(p)
 
 
+
+
+// 应用场景二 代理模式同步多个请求
+let syncChooseFile = function (id) {
+    console.log("开始发送请求")
+}
+
+let proxySyncChooseFile = (function () {
+    let cache = [],timer
+    return function (id){
+        cache.push(id)
+        timer = setTimeout(()=>{
+            syncChooseFile(cache.join(','))
+
+        },2000)
+    }
+})()

@@ -14,7 +14,6 @@
 //     console.log('err:',e)})
 //
 
-
 Promise.resolve().then(() => {
     console.log(0);
     return new Promise(resolve => {   // 在一个promise中返回另一个promise 则外部promise的状态由内部promise执行完后决定 ！！！！！！ 每遇见一个then 就会返回一个新promise 则向微任务队列中追加一个执行函数

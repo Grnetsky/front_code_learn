@@ -1,22 +1,25 @@
 const bucket = new WeakMap()   // 消息队列
 let activeEffect
 var data = {ok:true,text:"hello world"}
-let obj = new Proxy(data,{
-    set(target, p, value, receiver) {  // 新增或者更改属性  =》执行副作用函数\
-        console.log(`set ${target} ${p} ${value}`)
-        trigger(target,p)
-        return Reflect.set(target,p,value) // 设置值
-    },
-    get(target, p, receiver) {  //获取值  将副作用函数注册到队列中
-        console.log(`get ${target} ${p}`)
-       track(target,p)
-        return Reflect.get(target,p)
-     },
-    deleteProperty(target, p) {
-        return Reflect.deleteProperty(target,p)
-    },
-})
 
+
+function observe(obj){
+    new Proxy(data,{
+        set(target, p, value, receiver) {  // 新增或者更改属性  =》执行副作用函数\
+            console.log(`set ${target} ${p} ${value}`)
+            trigger(target,p)
+            return Reflect.set(target,p,value) // 设置值
+        },
+        get(target, p, receiver) {  //获取值  将副作用函数注册到队列中
+            console.log(`get ${target} ${p}`)
+            track(target,p)
+            return Reflect.get(target,p)
+        },
+        deleteProperty(target, p) {
+            return Reflect.deleteProperty(target,p)
+        },
+    })
+}
 function track(target,p) {
     if(!activeEffect)return Reflect.get(target,p)
     let depMaps = bucket.get(target) // 获取depMaps

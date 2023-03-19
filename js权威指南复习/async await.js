@@ -16,3 +16,28 @@ async function main() {
 }
 main()
 
+async function test(){
+    return 666
+}
+let p = test().then((v)=>{
+    console.log(11)})
+console.log(p)
+
+
+function x() {
+    try {
+        console.log("trg")
+        throw new Error("aa")
+        return 'try'
+    }
+    catch (e) {
+        console.log("catch")
+        return "catch return"
+    }
+    finally {
+        console.log("finally")
+        return "final"
+    }
+}
+
+console.log(x())

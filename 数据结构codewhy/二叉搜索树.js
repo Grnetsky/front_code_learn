@@ -102,11 +102,48 @@ class BinarySearchTree{
         return current
 
     }
-    delete(key){
-        const node = this.find(key)
-        
+    delete(key) {
+        //1. 先找到节点
+        let current = this.root
+        let parent = null// 指向其父亲
+        let isLetChild = false// 其父节点的哪个位置
+        while(current.data!==key){
+            parent = current
+            if(current.data > key){
+                current = current.left
+                isLetChild = true
+            } else{
+                current = current.right
+                isLetChild = false
+            }
+            if (current == null)return false
+        }
 
+        //2.1 删除的节点是叶子节点
+        if(current.left === null && current.right === null){ // 是否是删除的是叶子节点或者根节点
+            if(current === this.root)current = null  // 删除根节点
+            else{  // 删除叶子节点
+                isLetChild? parent.left = null : parent.right = null
+            }
+            return true  // 删除成功
+        }else if(current.left === null) {  // 2.2 删除的节点有一个右子节点
+            if(current === this.root)this.root = current.right // 此节点为根节点
+            else if(isLetChild){
+                parent.left = current.right  //
+            }else {
+                parent.right = current.right
+            }
+        }else if(current.right === null){ // 2.2 删除的节点有一个左子节点
+            if(current === this.root)this.root = current.left // 此节点是否为根节点
+            else if(isLetChild){
+                parent.left = current.left
+            }else {
+                parent.right = current.left
+            }
+        }
+        // 2.3 删除的节点有两个子节点
     }
+
 }
 
 let bst = new BinarySearchTree()

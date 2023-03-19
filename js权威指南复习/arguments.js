@@ -1,3 +1,4 @@
+// 'use strict'
 function add(a,b) {
     console.log(arguments,arguments.callee,arguments.callee.caller)
     return a+b

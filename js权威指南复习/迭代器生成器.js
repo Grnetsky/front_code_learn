@@ -4,29 +4,30 @@ class Iter {
     constructor() {
     }
     // 迭代方法 属性名为 Symbol.iterator
-    [Symbol.iterator](){   // 迭代器方法  这个方法返回迭代器对象
-        let i = 1 // 逻辑变量
-        return {   // 迭代器对象  里面必须要有 next 方法  这个 next方法返回
-            next(){
-                return  i<10?
-                    {value:i++}
-                    :{done:true}
-            },
-            return(){
-                console.log("停止迭代 调用return")
-                return {
-                    done:true
-                }
-            },
-            [Symbol.iterator](){  // 为了方便 让迭代器本身也可以迭代
-                return this
-            }
-
-        }
-    }
+    // [Symbol.iterator](){   // 迭代器方法  这个方法返回迭代器对象
+    //     let i = 1 // 逻辑变量
+    //     return {   // 迭代器对象  里面必须要有 next 方法  这个 next方法返回
+    //         next(){
+    //             return  i<10?
+    //                 {value:i++,done:false}
+    //                 :{done:true}
+    //         },
+    //         return(){
+    //             console.log("停止迭代 调用return")
+    //             return {
+    //                 done:true
+    //             }
+    //         },
+    //         [Symbol.iterator](){  // 为了方便 让迭代器本身也可以迭代
+    //             return this
+    //         }
+    //
+    //     }
+    // }
     *[Symbol.iterator](){
-        let i = 1
-        yield i++
+        for(let i = 0;i<10;i++){
+            yield i
+        }
     }
 }
 
