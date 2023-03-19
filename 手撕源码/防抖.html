@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>前端防抖实现</title>
+</head>
+<body>
+<input type="text">
+
+所谓防抖就是 多次连续点击 只执行最后一次
+<input type="button" value="搜索" onclick="todo()">
+</body>
+<script>
+
+
+    function search() {
+        console.log("调用搜索啦")
+    }
+
+
+    function fd(fn,t) {
+        let timer,canSend
+        return function () {
+            if(timer){
+                clearTimeout(timer) // 有定时器就重新定时
+            }
+            timer = setTimeout(()=>{
+                fn()
+                timer = null
+            },t)
+
+
+
+        }
+    }
+
+    let boundce = fd(search,1000)
+    function todo() {
+        boundce()
+    }
+</script>
+</html>

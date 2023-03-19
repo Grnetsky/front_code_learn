@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>前端防抖实现</title>
+</head>
+<body>
+<input type="text">
+
+所谓节流就是 多次连续点击 一定时间内只执行一次
+<input type="button" value="搜索" onclick="todo()">
+</body>
+<script>
+    function search() {
+        console.log("调用搜索啦")
+    }
+    function fd(fn,t) {
+        let timer
+        return function () {
+            if(!timer){
+                timer = setTimeout(()=>{
+                    fn()
+                    clearTimeout(timer)
+                    timer = null
+                },t)
+                console.log(timer)
+            }
+
+        }
+    }
+
+    let boundce = fd(search,1000)
+    function todo() {
+        boundce()
+    }
+</script>
+</html>
