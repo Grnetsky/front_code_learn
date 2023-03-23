@@ -92,7 +92,6 @@ class Graph{
     // 深度优先搜索（DFS） 类似于二叉树的先序遍历
     dfs(v,handler){  // 访问开始点  处理函数
         let color = this.initializeColor()  // 初始化颜色
-
         this.dfsVisit(v,color,handler)
     }
     dfsVisit(v,color,handler){//当前访问节点  当前颜色  处理函数
@@ -106,7 +105,6 @@ class Graph{
         })
         color[v] = color[2]
     }
-
 }
 
 let graph = new Graph()

@@ -5,7 +5,7 @@ class ArrayQueue {
     front = 0 // 队列头指针
     rear = 0 // 队列尾部
     arr = [] // 队列
-    constructor(maxsize,) {
+    constructor(maxsize) {
         this.maxsize = maxsize
         this.arr = new Array(this.maxsize)
         this.front = -1 // 指向队列头部的前一个位置

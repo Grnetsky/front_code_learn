@@ -34,7 +34,18 @@
         }
     }
 
-    let boundce = fd(search,1000)
+    function antiShake(fun,t) {
+        let timer = null
+        return function(){
+            if(timer){clearTimeout(timer);timer = null}
+            timer = setTimeout(()=>{
+                fun()
+                timer = null
+            },t)
+        }
+    }
+
+    let boundce = antiShake(search,1000)
     function todo() {
         boundce()
     }

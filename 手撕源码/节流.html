@@ -20,7 +20,6 @@
             if(!timer){
                 timer = setTimeout(()=>{
                     fn()
-                    clearTimeout(timer)
                     timer = null
                 },t)
                 console.log(timer)
@@ -29,7 +28,8 @@
         }
     }
 
-    let boundce = fd(search,1000)
+
+    let boundce = throttle(fd,1000)
     function todo() {
         boundce()
     }

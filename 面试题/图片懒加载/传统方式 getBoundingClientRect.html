@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>懒加载 getBoundingClientRect</title>
+    <style>
+        .container {
+
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+    <img class="lazy" src="./preImg.jpg" alt="" data-src="./realImg.jpg">
+</div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded",()=>{
+        let lazyImages = Array.from(document.querySelectorAll('img.lazy'))
+        const lazyLoad = function (){
+            lazyImages.forEach((item)=>{
+           if((item.getBoundingClientRect().top<=window.innerHeight && item.getBoundingClientRect().bottom>=0)&&getComputedStyle(item).display !== 'none'){
+               item.src = item.dataset.src
+               item.classList.remove('lazy') // 移除lazy属性，防止重复加载
+               lazyImages = lazyImages.filter((image)=>image !== item) // 将这个对象从懒加载列表中删除
+           }
+           if(lazyImages.length === 0 ){
+               document.removeEventListener('scroll',lazyLoad) //移除事件监听
+               window.removeEventListener('resize',lazyLoad)
+               window.removeEventListener('orientationchange',lazyLoad)
+           }
+        })}
+        document.addEventListener('scroll',lazyLoad) //移除事件监听
+        window.addEventListener('resize',lazyLoad)
+        window.addEventListener('orientationchange',lazyLoad)
+    })
+</script>
+</html>
