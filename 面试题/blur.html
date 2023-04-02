@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>blur</title>
+</head>
+<style>
+    div{
+        width: 200px;
+        height: 200px;
+        background-color: tomato;
+    }
+</style>
+<body>
+<div tabindex="-1"> </div>
+<div tabindex="-1"> </div>
+
+</body>
+<script>
+    let d = document.querySelectorAll("div")
+    d.forEach((i)=>{
+        i.addEventListener('blur',()=>{i.style.visibility = 'hidden'})
+    })
+</script>
+</html>

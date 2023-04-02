@@ -30,7 +30,7 @@ class ArrayList{
     }
 
     // 插入排序: 是学习高级排序的基础
-    insertionSort(){
+    insertionSort() {
         let length = this.array.length
         for(let i = 1;i<length;i++){
             var temp = this.array[i] //当前要插入的元素

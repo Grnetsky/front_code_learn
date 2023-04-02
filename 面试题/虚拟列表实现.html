@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #list-container{
+            height: 100vh;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+<div id="list-container">
+    <div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div>
+    <div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div>
+    <div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div>
+
+    <div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div>
+    <div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div><div class="list-item">1</div>
+    <div class="list-item">2</div>
+    <div class="list-item">3</div>
+    <div class="list-item">3</div>
+    <div class="list-item">100</div>
+</div>
+</body>
+<script>
+    const container = document.getElementById('list-container');
+    const items = container.querySelectorAll('.list-item');
+    const itemHeight = items[0].offsetHeight; // 获取列表项高度
+    const visibleItemCount = Math.ceil(container.offsetHeight / itemHeight); // 计算可视区域内的数据量
+
+    let startIndex = 0; // 记录当前渲染的列表项起始索引
+
+    function renderList() {
+        console.log("render")
+        const scrollTop = container.scrollTop; // 获取滚动条偏移量
+        const endIndex = startIndex + visibleItemCount; // 计算当前需要渲染的列表项结束索引
+        for (let i = startIndex; i < endIndex; i++) {
+            const item = items[i];
+            if (item) {
+                item.innerText = i + 1; // 更新列表项的文本内容
+            }
+        }
+        startIndex = Math.floor(scrollTop / itemHeight); // 计算当前需要渲染的列表项起始索引
+    }
+    container.addEventListener('scroll', renderList);
+    renderList();
+
+</script>
+</html>
