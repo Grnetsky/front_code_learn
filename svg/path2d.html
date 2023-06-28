@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body onload="draw()">
+  <canvas id="canvas" width="400" height="400"></canvas>
+</body>
+<script>
+  function draw(){
+    let canvas = document.querySelector("canvas")
+    let ctx = canvas.getContext('2d')
+    let rectangle = new Path2D('M10 10 h 80 v 80 h -80 Z')
+    ctx.stroke(rectangle)
+  }
+</script>
+</html>
