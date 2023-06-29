@@ -95,7 +95,17 @@ transform：变换rotate（旋转角度，旋转中心点x坐标,旋转中心点
 命令的大小写表示意义不同 大写表示绝对定位，小写表示相对定位（相对于上一个绘制点）
 d：draw 表示绘制命令 M：moveto M150 0  从150,0 位置开始  L：lineto 链接点 l75 200   q: 绘制二次贝塞尔曲线 q 150 -300  300 0  表示 控制点 和 终点坐标
 
-
+### 命令解析
+M: moveto(M x y) 移动到
+L: lineto(L x y) 画线到
+H: horizontal lineto(H x) 水平线到
+V: vertical lineto(H y) 垂直线到
+A: elliptical arc（A ry rx x-axis-rotation large-arc-flag sweep-flag x y） 椭圆弧
+C: curveto(Cx1 y1 x2 y2 x y) 三次贝塞尔曲线到
+S: smooth curveto(S x2 y2 x y) 光滑三次贝塞尔曲线到
+Q: Bezier curveto(x1 y1 x y) 二次贝塞尔曲线
+T: smooth Bezier curveto(T x y)光滑二次贝塞尔曲线到
+Z: closePath 关闭路径
 ## 描边属性
 stroke：笔画颜色属性
 stroke-width：笔画宽度
@@ -177,3 +187,4 @@ fy: 内部圆
 ## transform
 
 ## use
+
