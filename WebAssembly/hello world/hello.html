@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var wasmMem = new WebAssembly.Memory({initial:1}) //创建内存对象 起始长度为1页 64KB
+    function printStr(offset, length) {
+        var bytes = new Uint8Array(wasmMem.buffer, offset, length);
+        var string = new TextDecoder('utf8').decode(bytes)
+        console.log(string)
+    }
+    var importObj = {js: {print: printStr, mem: wasmMem}}
+    fetch("./hello.wasm").then(response=>
+        response.arrayBuffer()
+    ).then(bytes =>
+        WebAssembly.instantiate(bytes, importObj)
+    ).then(result=>
+        result.instance.exports.hello()
+    )
+</script>
+</body>
+</html>
