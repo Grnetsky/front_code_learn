@@ -1,5 +1,5 @@
 //TODO 此对象在web中已禁用
-const workerScript =
+const workerScript = sharedArrayBuffer
 
 self.onmessage =
 ({data})=>{

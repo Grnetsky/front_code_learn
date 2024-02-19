@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas 画图示例</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<canvas id="drawingCanvas" width="800" height="600" style="border:1px solid #000000;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+<button id="undo">撤销</button>
+<button id="redo">重做</button>
+<script>
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    // 撤销和重做的堆栈
+    let undoStack = [];
+    let redoStack = [];
+
+    // 用于保存画布状态
+    function saveState() {
+        // 添加当前状态到撤销堆栈
+        undoStack.push(canvas.toDataURL());
+        // 清空重做堆栈
+        redoStack = [];
+    }
+
+    // 撤销操作
+    function undoLastAction() {
+        if (undoStack.length > 0) {
+            // 弹出最新状态并将其加入重做堆栈
+            const latestState = undoStack.pop();
+            redoStack.push(latestState);
+
+            // 恢复到上一个状态
+            const previousState = undoStack.length > 0 ? undoStack[undoStack.length - 1] : null;
+            if (previousState) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+                img.src = previousState;
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+    }
+
+    // 重做操作
+    function redoLastAction() {
+        if (redoStack.length > 0) {
+            // 弹出重做堆栈的状态并将其加入撤销堆栈
+            const stateToRedo = redoStack.pop();
+            undoStack.push(stateToRedo);
+
+            // 恢复到重做的状态
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
+            img.src = stateToRedo;
+        }
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        // 保存当前画布状态
+        saveState();
+        ctx.beginPath();
+        ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (isDrawing) {
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+        }
+    });
+
+    canvas.addEventListener('mouseup', () => {
+        isDrawing = false;
+    });
+
+    canvas.addEventListener('mouseout', () => {
+        if (isDrawing) {
+            isDrawing = false;
+        }
+    });
+
+    // 绑定撤销和重做的按键或按钮事件
+    document.getElementById('undo').addEventListener('click', undoLastAction);
+    document.getElementById('redo').addEventListener('click', redoLastAction);
+</script>
+
+</body>
+</html>

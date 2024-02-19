@@ -44,7 +44,7 @@ class Graph{
      * @param v2 第二个顶点*/
     addEdges(v1,v2){
         this.#edges.get(v1).push(v2) // 有向图 单向
-        this.#edges.get(v2).push(v1) // 无向图 双向
+        // this.#edges.get(v2).push(v1) // 无向图 双向
     }
     getVertexes(){
         return this.#vertexes
@@ -128,12 +128,15 @@ graph.addEdges('D','G')
 graph.addEdges('D','H')
 graph.addEdges('B','E')
 graph.addEdges('B','F')
-graph.addEdges('E','I')
+graph.addEdges('I','G')
 graph.toString()
+// 广度优先搜索（BFS）
 graph.bfs(graph.getVertexes()[0],(n)=>{
     console.log(n)
 })
 console.log('#####')
+
+// 深度优先
 graph.dfs(graph.getVertexes()[0],(n)=>{
     console.log(n)
 })

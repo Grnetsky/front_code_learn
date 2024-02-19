@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>svg描边动画</title>
+    <style>
+        @keyframes circleAnimation {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes arrowAnimation {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .circle {
+            stroke-dasharray: 127; /* Circle circumference */
+            stroke-dashoffset: 127; /* Offset should be the same as the circumference initially */
+            animation: circleAnimation 2s ease forwards;
+        }
+
+        .arrow {
+            stroke-dasharray: 50; /* Adjust this value based on your arrow's actual length */
+            stroke-dashoffset: 50; /* Initially the same as your stroke-dasharray */
+            animation: arrowAnimation 2s ease forwards;
+        }
+        .gradient-stroke {
+            stroke: url(#strokeGradient);
+        }
+    </style>
+</head>
+<body>
+<svg width="25" height="25" viewBox="0 0 50 50">\n' +
+    '    <defs>\n' +
+        '        <linearGradient id="strokeGradient" x1="0%" y1="0%" x2="100%" y2="0%">\n' +
+            '            <stop offset="0%" style="stop-color:rgb(255,128,0);stop-opacity:1" />\n' +
+            '            <stop offset="100%" style="stop-color:rgb(255,0,98);stop-opacity:1" />\n' +
+            '        </linearGradient>\n' +
+        '    </defs>\n' +
+    '    <!-- 绘制居中的圆形 -->\n' +
+    '    <circle cx="25" cy="25" r="20" stroke="black" fill="none" stroke-width="3" class="circle gradient-stroke"/>\n' +
+    '    <!-- 绘制居中的箭头 -->\n' +
+    '    <path d="M15 25 L35 25 M25 15 L35 25 L25 35" stroke="black" fill="none" stroke-width="3" class="arrow gradient-stroke"/>\n' +
+    '</svg>
+
+<svg width="500" height="500">
+    <path id="waterPath" d="M100,400 Q200,200 300,400 T500,400" fill="none" stroke="blue" />
+</svg>
+<svg width="500" height="500">
+    <path id="waterPath" d="M100,400 Q200,200 300,400 T500,400" fill="none" stroke="blue" />
+    <circle cx="100" cy="400" r="10" fill="blue">
+        <animateMotion dur="5s" repeatCount="indefinite">
+            <mpath href="#waterPath" />
+        </animateMotion>
+    </circle>
+</svg>
+
+</body>
+</html>
