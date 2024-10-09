@@ -3,24 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <style>
-    html,body {
-      width: 100%;
-      height: 100%;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-    }
-  </style>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #app {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: #ff00ff;
+        }
+        nav {
+            flex-shrink: 0; /* 保持 nav 的高度 */
+            height: 56px;
+            background-color: #7c7cea;
+        }
+        main {
+            flex: 1;
+            height: calc(100% - 56px);
+            display: flex;
+            flex-direction: row;
+            background-color: #4CAF50;
+        }
+        aside {
+            width: 160px;
+            overflow-y: auto; /* 侧边栏溢出时滚动 */
+            height: 100%;
+            background-color: #61dafb;
+        }
+        .canvas {
+            flex: 1;
+            background-color: #282c34;
+        }
+    </style>
 </head>
 <body>
-<div style="height: 100%;background-color: #ff00ff">
-  <div style="height: 100%;background-color: #4CAF50"></div>
+<div id="app">
+    <nav>标题</nav>
+    <main>
+        <aside>
+            <!-- 生成100个div -->
+            <div>999</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>#</div>
+            <div>666</div>
+        </aside>
+        <div class="canvas"></div>
+    </main>
 </div>
-
-<p>
-  height为百分比时，是以父元素（包含块）的高度为参考，都为百分比时候，需要同时设置html,body的高度为百分比
-</p>
 </body>
 </html>
