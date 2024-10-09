@@ -3,8 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Houdini API - CSS</title>
+    <style>
+        @property --an {
+            inherits: true;
+            syntax: "<angle>";
+            initial-value: 90deg;
+        }
+        div{
+            width: 300px;
+            margin: auto;
+            height: 800px;
+            background: linear-gradient(var(--an),#61dafb,#7c7cea);
+            animation: rotate 1.5s linear infinite;
+        }
+        @keyframes rotate {
+            to {
+                --an: 360deg;
+            }
+        }
+    </style>
 </head>
 <body>
-
+    <div></div>
 </body>
 </html>
