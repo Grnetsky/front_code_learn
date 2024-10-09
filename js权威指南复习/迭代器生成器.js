@@ -45,8 +45,11 @@ console.log([...i],it.next(),it.next())
 
 // 生成器
 function* creator() {
+    console.log('1-----------')
     yield 1
+    console.log('2-----------')
     yield 2
+    console.log('3-----------')
     yield 3
 }
 

@@ -1,3 +1,4 @@
+
 import OpenAI from 'openai'
 import path from 'path'
 import fs from 'fs'
@@ -12,10 +13,13 @@ async function main() {
   const params = {
     messages: [{ role: 'user', content: '给我讲讲设计模式' }],
     model: 'gpt-3.5-turbo',
-    // stream:true
+    stream:true
   };
   const stream = await openai.chat.completions.create(params);
-  let res = stream.choices[0].message.content;
+    for await (const chunk of stream) {
+      process.stdout.write(chunk.choices[0]?.delta?.content || '');
+  }
+  // let res = stream.choices[0].message.content;
   console.log(res)
   // stream.toReadableStream().pipeTo()
   //   for await (const chunk of stream) {

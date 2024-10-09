@@ -14,7 +14,7 @@
     },2000)
     fetch("http://127.0.0.1:8000",{
         method:"post", // 请求方法
-        body:JSON.stringify({username:"fetch1",password:"123123123"}),  // 请求体  必须为Blob BufferArray FormData URLSearchParams ReadableStream 或者String的实例
+        body:JSON.stringify({username:"fetch1",password:"123123123"}),  // 请求体  必须为Blob BufferArray FormData URLSearchParams ReadableStream 或者String的实例  get和head请求不能传递body参数
         cache:"Default",  //设置http缓存的交互  Default no-store reload no-cache force-cache only-if-cached
         credentials:"omit", //omit:不带cookie  same-origin:同源携带cookie   include：都携带cookie
         headers:{}, // 必须是Headers对象实例  或者常规键值对对象
