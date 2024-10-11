@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>同文档视图转换 （切换背景颜色）</title>
+    <style>
+        body,html {
+            width: 100%;
+            height: 100%;
+        }
+        .content {
+            width: 300px;
+            height: 500px;
+            border-radius: 5px;
+            background: #7c7cea;
+            margin: auto;
+        }
+        @keyframes fade-in {
+            from { opacity: 0; }
+        }
+
+        @keyframes fade-out {
+            to { opacity: 0; }
+        }
+
+        @keyframes slide-from-right {
+            from { transform: translateX(30px); }
+        }
+
+        @keyframes slide-to-left {
+            to { transform: translateX(-30px); }
+        }
+
+        ::view-transition-old(root) {
+            animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+            300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+        }
+
+        ::view-transition-new(root) {
+            animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+            300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+        }
+        ::view-transition-new(text) {
+            animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-out,
+            300ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out;
+        }
+        ::view-transition-old(text) {
+            animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+            300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+        }
+        .title {
+            width: 300px;
+            height: 50px;
+            border-radius: 5px;
+            background-color: #ff00ff;
+                view-transition-name: title;
+        }
+        .text{
+            view-transition-name: text;
+        }
+    </style>
+</head>
+<body>
+<div class="title">
+    <span class="text">标题</span>   </div>
+<button onclick="transtlate()">切换</button>
+<div class="main" style="background: #fc0606;width: 100%;height: 100%">
+<div class="content"></div>
+</div>
+<script>
+    /**
+     * 调用此方法时，浏览器会自动捕获声明了 view-transition-name CSS 属性的所有元素的快照。
+     *
+     * 然后，它会执行传入的用于更新 DOM 的回调，之后会拍摄新状态的快照。
+     *
+     * 然后，这些快照会被排列在伪元素树中，并利用 CSS 动画的强大功能进行动画处理。
+     * 旧状态和新状态的成对快照从其旧位置和大小顺畅地过渡到新位置，同时其内容淡入淡出。您可以根据需要使用 CSS 自定义动画。*/
+function transtlate(){
+    startViewTransition(()=>{
+        document.querySelector('.main').innerHTML = `<div class="content" style="background: #4CAF50;width: 100px"></div>`
+    })
+}
+
+    function startViewTransition(callback) {
+        if (!document.startViewTransition) {
+            callback();
+            return;
+        }
+
+        document.startViewTransition(callback);
+    }
+</script>
+</body>
+</html>
