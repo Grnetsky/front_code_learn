@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .demo-dot {
+            animation: xAxis 2.5s infinite cubic-bezier(0.02, 0.01, 0.21, 1);
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background-color: rgba(223, 14, 14, 0);
+        }
+
+        .demo-dot::after {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background-color: #0e8fdf;
+            animation: yAxis 2.5s infinite cubic-bezier(0.3, 0.27, 0.07, 1.64);
+        }
+
+        @keyframes yAxis {
+            50% {
+                animation-timing-function: cubic-bezier(0.02, 0.01, 0.21, 1);
+                transform: translateY(-100px);
+            }
+        }
+
+        @keyframes xAxis {
+            50% {
+                animation-timing-function: cubic-bezier(0.4, 0.6, 0.17, 2.64);
+                transform: translateX(100px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="demo-dot"></div>
+</body>
+</html>
