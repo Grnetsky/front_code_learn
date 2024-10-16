@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+具体时间数据
+PerformanceEntry 不同类型的条目会包含不同的时间数据。以下是一些常见类型和它们对应的时间信息：
+
+1. Navigation Timing (PerformanceNavigationTiming)
+startTime：导航开始时间。
+duration：总持续时间。
+redirectStart 和 redirectEnd：重定向开始和结束时间。
+fetchStart：开始获取资源的时间。
+domainLookupStart 和 domainLookupEnd：DNS 查询的开始和结束时间。
+connectStart 和 connectEnd：TCP 连接的开始和结束时间。
+requestStart：请求发送的时间。
+responseStart 和 responseEnd：开始接收和接收完响应的时间。
+domContentLoadedEventStart 和 domContentLoadedEventEnd：DOMContentLoaded 事件的开始和结束时间。
+loadEventStart 和 loadEventEnd：页面加载事件的开始和结束时间。
+2. Resource Timing (PerformanceResourceTiming)
+startTime：资源请求的开始时间。
+duration：总持续时间。
+redirectStart 和 redirectEnd：如果有重定向，重定向的开始和结束时间。
+domainLookupStart 和 domainLookupEnd：DNS 查询的开始和结束时间。
+connectStart 和 connectEnd：TCP 连接的开始和结束时间。
+requestStart：请求发送的时间。
+responseStart 和 responseEnd：开始接收和接收完响应的时间。
+3. User Timing (PerformanceMark 和 PerformanceMeasure)
+startTime：标记或度量的开始时间。
+duration：度量的持续时间。
+4. Long Task Timing (PerformanceLongTaskTiming)
+startTime：长任务的开始时间。
+duration：长任务的持续时间。
+5. Paint Timing (PerformancePaintTiming)
+startTime：首次绘制或首次内容绘制的时间。
+示例代码
+javascript
+// 创建一个 PerformanceObserver 实例来监听不同类型的性能条目
+const observer = new PerformanceObserver((list) => {
+const entries = list.getEntries();
+entries.forEach((entry) => {
+console.log(`Name: ${entry.name}`);
+console.log(`Entry Type: ${entry.entryType}`);
+console.log(`Start Time: ${entry.startTime}`);
+console.log(`Duration: ${entry.duration}`);
+});
+});
+
+// 观察多个类型的性能条目
+observer.observe({ entryTypes: ['navigation', 'resource', 'mark', 'measure', 'longtask', 'paint'] });
+
+// 添加自定义标记和度量
+performance.mark('startTask');
+// 模拟一些任务
+setTimeout(() => {
+performance.mark('endTask');
+performance.measure('taskDuration', 'startTask', 'endTask');
+}, 1000);
+
+// 加载一个资源来生成资源性能条目
+fetch('https://example.com')
+.then(response => response.text())
+.then(data => {
+// 数据加载完成
+});
+通过上述代码，PerformanceObserver 将会捕获并输出各种类型的性能条目，包括导航、资源加载、自定义标记和度量、长任务和绘制时间等。
+
+
+
+
+
+
+avatar
+
+<script>
+  // 创建一个 PerformanceObserver 实例
+  const observer = new PerformanceObserver((list) => {
+    const entries = list.getEntries();
+    entries.forEach((entry) => {
+      console.log(`Name: ${entry.name}`);
+      console.log(`Type: ${entry.entryType}`);
+      console.log(`Start Time: ${entry.startTime}`);
+      console.log(`Duration: ${entry.duration}`);
+    });
+  });
+
+  // 观察 'mark' 和 'measure' 类型的性能条目
+  observer.observe({ entryTypes: ['mark', 'measure', 'resource', 'navigation'] });
+
+  // 添加一个自定义标记
+  performance.mark('myMark');
+
+  // 添加一个自定义度量
+  performance.measure('myMeasure', 'myMark');
+
+  // 加载一个资源来生成资源性能条目（在浏览器环境中运行此代码）
+  fetch('https://2d.le5le.com')
+          .then(response => response.text())
+          .then(data => {
+            // 数据加载完成
+          });
+
+</script>
+</body>
+</html>
