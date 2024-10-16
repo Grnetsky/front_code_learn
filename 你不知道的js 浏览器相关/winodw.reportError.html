@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+`throw new Error` 和 `window.reportError` 都可以用来报告错误，但它们在用途和行为上有一些关键的区别。以下是详细的对比和解释：
+
+### `throw new Error`
+
+**用途**：
+- 用于在代码中显式抛出一个错误。这通常用于异常处理和错误传播。
+
+**行为**：
+- 当 `throw new Error` 被执行时，会立即中断当前的代码执行，并进入最近的 `catch` 块（如果存在）。
+- 如果没有捕获该错误，它会传播到调用栈的顶端，并触发全局的 `window.error` 事件。
+
+**示例**：
+
+```javascript
+try {
+throw new Error('This is a test error');
+} catch (e) {
+console.log('Caught error:', e.message);
+}
+```
+
+如果没有捕获：
+
+```javascript
+window.addEventListener('error', function(event) {
+console.log('Error caught:', event.message);
+});
+
+throw new Error('This is a test error');
+```
+
+### `window.reportError`
+
+**用途**：
+- `window.reportError` 是一种用于报告错误的方式，通常用于将错误信息传递给浏览器的错误报告机制，而不影响当前代码的执行流。该方法在浏览器中可能还不是完全标准化的，某些浏览器可能不支持。
+
+**行为**：
+- 当你调用 `window.reportError` 时，错误信息会被传递给浏览器的全局错误处理程序，就像未捕获的错误那样。
+- 不会中断当前代码的执行。
+- 通常用于报告异步错误或捕获的错误，而不影响程序继续运行。
+
+**示例**：
+
+```javascript
+window.addEventListener('error', function(event) {
+console.log('Error reported:', event.message);
+});
+
+try {
+// Simulate an error
+throw new Error('This is an error within a try block');
+} catch (e) {
+// Report the error without throwing it again
+window.reportError(e);
+}
+
+// Additional code continues to run
+console.log('Code continues to run after reportError');
+```
+
+### 区别总结
+
+1. **错误传播**：
+- `throw new Error` 会中断当前执行流并立即进入最近的 `catch` 块或触发全局错误处理。
+- `window.reportError` 不会中断当前执行流，仅仅报告错误。
+
+2. **用途**：
+- `throw new Error` 用于触发异常处理流程。
+- `window.reportError` 用于向全局错误处理程序报告错误，而不干扰当前代码执行。
+
+3. **浏览器支持**：
+- `throw new Error` 是标准的 JavaScript 语法，所有浏览器和环境都支持。
+- `window.reportError` 可能并非所有浏览器都支持，这是一个相对较新的功能，应该检查兼容性。
+
+4. **典型使用场景**：
+- **`throw new Error`**：在需要显式抛出错误并希望触发异常处理的场景使用。
+- **`window.reportError`**：在捕获到错误后，希望报告错误信息但不影响程序继续运行的场景使用。
+
+### 示例应用场景
+
+**`throw new Error`**：
+
+用于函数内部需要抛出错误并希望调用者处理错误的场景：
+
+```javascript
+function riskyOperation() {
+if (someCondition) {
+throw new Error('Something went wrong');
+}
+}
+```
+
+**`window.reportError`**：
+
+用于捕获异步操作中的错误并报告：
+
+```javascript
+fetch('some-url')
+.then(response => response.json())
+.catch(error => {
+window.reportError(error);
+});
+
+console.log('Code continues to run after fetch');
+```
+
+通过这两种方法，开发者可以灵活地处理和报告错误，提升应用的稳定性和用户体验。
+</body>
+</html>

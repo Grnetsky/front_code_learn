@@ -45,5 +45,14 @@
 </head>
 <body>
 <div class="demo-dot"></div>
+<script>
+    window.addEventListener('error', function(event) {
+        console.log('Error caught:', event.message);
+        return true; // 阻止浏览器默认错误处理
+    });
+
+    throw new Error('Another test error');
+
+</script>
 </body>
 </html>
