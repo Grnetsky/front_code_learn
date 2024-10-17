@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>气泡框阴影效果</title>
+  <style>
+    .bubble {
+      position: relative;
+      width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 15px;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 1));
+      /*box-shadow: 0 4px 6px rgba(0, 0, 0, 1);*/
+      margin: 100px auto;
+      text-align: center;
+    }
+
+    .c {
+      position: absolute;
+      bottom: -38px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 20px;
+      border-style: solid;
+      border-color: #fff transparent transparent transparent;
+      /*filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 1));*/
+    }
+
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+<div class="bubble">
+  这是一个气泡框
+  <div class="c"></div>
+</div>
+</body>
+</html>
