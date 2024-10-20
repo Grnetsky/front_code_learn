@@ -13,5 +13,5 @@ jobs:
           username: ${{secrets.REMOTE_USERNAME}}
           password: ${{secrets.REMOTE_PASSWORD}}
           port: 22
-          source: "/"
+          source: "*"
           target: ${{secrets.REMOTE_TARGET}}
