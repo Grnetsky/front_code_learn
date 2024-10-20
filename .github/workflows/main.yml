@@ -1,12 +1,13 @@
-name: deploy website
+name: deploy front
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-        uses: appleboy/scp-action@v0.1.4
+      - uses: actions/checkout@v3
+      - uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{secrets.REMOTE_HOST}}
           username: ${{secrets.REMOTE_USERNAME}}
