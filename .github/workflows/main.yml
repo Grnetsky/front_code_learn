@@ -1,0 +1,16 @@
+name: deploy website
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{secrets.REMOTE_HOST}}
+          username: ${{secrets.REMOTE_USERNAME}}
+          password: ${{secrets.REMOTE_PASSWORD}}
+          port: 22
+          source: "/"
+          target: ${{secrets.REMOTE_TARGET}}
