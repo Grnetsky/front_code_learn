@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AbortController</title>
+</head>
+<body>
+<script>
+  // AbortSignal.timeout(1000)
+  const controller = new AbortController()
+
+  fetch('http://www.baidu.com',{
+    signal:controller.signal
+  }).then(res=>{
+    console.log(res)
+  }).catch(err=>{
+    console.log(err)
+  })
+
+  // 通用适用于addEventListener的事件
+
+  window.addEventListener('resize',()=>{
+    console.log('resize')
+  },{
+    signal:controller.signal
+  })
+
+  controller.signal.onabort = ()=>{
+    console.log("请求中断")
+  }
+
+  controller.abort('aaa')
+
+
+
+
+</script>
+</body>
+</html>
