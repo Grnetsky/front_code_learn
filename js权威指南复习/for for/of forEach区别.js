@@ -22,3 +22,5 @@ arr.forEach(i=>{
     arr.push(i)
     console.log(i)
 })
+
+//forEach 是同步且立即执行的，但它会受到回调函数中对数组的修改影响。如果你需要在遍历过程中修改数组，forEach 能够立即反映这些修改，但新增的元素不会被执行。
