@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<template id="my-template">
+  <div class="item">
+    <h2>Item Title</h2>
+    <p>This is a description of the item.</p>
+  </div>
+</template>
+
+<div id="content"></div>
+template 标签在 HTML 中用于定义可重用的 HTML 片段，这些片段不会在页面加载时直接显示。它提供了一种在文档中存储标记结构的方式，这些标记可以在脚本运行时动态插入到页面中。以下是 template 标签的一些关键特性和用途：
+
+  内容不显示：template 内的内容在页面加载时不会被渲染或显示。浏览器会忽略它们直到通过 JavaScript 进行操作。
+
+  结构化内容：它允许你定义复杂的 HTML 结构，这些结构可以在需要时被克隆和使用。
+
+  文档片段：template 内的内容被视为文档片段（DocumentFragment），可以通过 JavaScript 操作，比如克隆或插入到 DOM 中。
+
+  可复用性：通过将重复使用的 HTML 片段放在 template 中，可以在多个地方复用相同的结构而无需重复编写相同的代码。
+
+  延迟渲染：适用于需要动态生成内容或在特定用户交互后才显示内容的场景。
+
+<script>
+  // 获取模板元素
+  const template = document.getElementById('my-template');
+  // 克隆模板内容
+  const clone = template.content.cloneNode(true);
+  // 将克隆的内容插入到页面中
+  document.getElementById('content').appendChild(clone);
+</script>
+</body>
+</html>
