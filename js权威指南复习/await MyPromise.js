@@ -112,12 +112,15 @@ class MyPromise {
     }
 }
 
+async function asyncFunc(){
+    const a = await new MyPromise((resolve, reject) => {
+        console.log('promise')
+        resolve('Success!');
+    })
+    return a
+}
 // 使用示例
-const a = await new MyPromise((resolve, reject) => {
-    console.log('promise')
-    resolve('Success!');
-})
 
-console.log(a)
-
+const b = await asyncFunc()
+console.log(b)
 console.log(1);
