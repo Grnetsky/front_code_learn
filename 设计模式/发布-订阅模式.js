@@ -23,7 +23,7 @@ publisher.subscript(function () {
 })
 setTimeout(()=>{publisher.publish("2秒后发布")},2000)
 
-//es6
+//es2015
 class Publisher{
     constructor() {
         this.listenList = []
