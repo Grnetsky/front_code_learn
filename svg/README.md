@@ -34,7 +34,7 @@ ry：定义圆角y轴方向的半径长度
 ```html
 <svg width="400" height="110">
     <rect width="300" height="100" fill="pink" x="100" y="0" stroke="blue"></rect>
-</svg>>
+</svg>
 ```
 
 ## 圆形circle

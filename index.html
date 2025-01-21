@@ -2,32 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irregular Shape Transformation</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-<div>
-  <ul>
-    <a href="">
-      <li></li>
-    </a>
-    <a href="">
-      <li></li>
-    </a>
-    <a href="">
-      <li></li>
-    </a>
-    <a href="">
-      <li></li>
-    </a>
-    <a href="">
-      <li>666qweqwe</li>
-    </a>
-
-  </ul>
-</div>
-</body>
+<canvas id="myCanvas" width="400" height="400"></canvas>
 <script>
-  let txt = document.querySelector('ul>a:last-child>li').textContent
-  console.log(txt)
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // 定义四个锚点
+    let points = [
+        { x: 100, y: 50 },  // Point A
+        { x: 150, y: 150 }, // Point B
+        { x: 100, y: 250 }, // Point C
+        { x: 50, y: 150 }   // Point D
+    ];
+
+    // 绘制多边形
+    function drawPolygon() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y); // 移动到第一个点
+
+        for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y); // 连接其他点
+        }
+
+        ctx.closePath(); // 闭合路径
+        ctx.fillStyle = 'lightblue';
+        ctx.fill(); // 填充颜色
+        ctx.stroke(); // 绘制边框
+    }
+
+    // 修改锚点位置并重新绘制
+    function transformShape() {
+        // 修改其中一个锚点的位置
+        points[2].y -= 90; // 向下移动点 C
+        drawPolygon(); // 重新绘制多边形
+    }
+
+    // 初始绘制
+    drawPolygon();
+
+    // 进行变换
+    setTimeout(transformShape, 2000); // 2秒后进行变换
+
 </script>
+</body>
 </html>
