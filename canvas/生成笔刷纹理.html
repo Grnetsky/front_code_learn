@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p>方式一：使用自定义的路径绘制纹理（模拟笔刷）</p>
+<code>
+  const canvas = document.getElementById("myCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const brushImg = new Image();
+  brushImg.src = "brush.png"; // 一张半透明的笔刷图案
+  brushImg.onload = () => {
+  drawPencilLine(ctx, [{x: 10, y: 10}, {x: 300, y: 150}], brushImg);
+  };
+
+  function drawPencilLine(ctx, points, brushImg) {
+  const spacing = 4; // 笔触之间的距离
+  for (let i = 0; i < points.length - 1; i++) {
+  const p1 = points[i];
+  const p2 = points[i + 1];
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  const distance = Math.hypot(dx, dy);
+  const steps = distance / spacing;
+
+  for (let j = 0; j < steps; j++) {
+  const t = j / steps;
+  const x = p1.x + dx * t;
+  const y = p1.y + dy * t;
+  ctx.drawImage(brushImg, x - brushImg.width / 2, y - brushImg.height / 2);
+  }
+  }
+  }
+</code>
+
+<p>方式2：使用canvas的createPattern方法</p>
+<code>
+  const patternImg = new Image();
+  patternImg.src = 'pen-texture.png'; // 可以是钢笔墨水的纹理图案
+  patternImg.onload = () => {
+  const pattern = ctx.createPattern(patternImg, 'repeat');
+  ctx.strokeStyle = pattern;
+  ctx.lineWidth = 10;
+
+  ctx.beginPath();
+  ctx.moveTo(20, 20);
+  ctx.lineTo(300, 120);
+  ctx.stroke();
+  };
+</code>
+
+<p>方式3：模拟毛边或随机性（适用于铅笔）</p>
+<code>
+  function drawSketchyLine(ctx, x1, y1, x2, y2) {
+  const segments = 10;
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  for (let i = 1; i < segments; i++) {
+  const t = i / segments;
+  const x = x1 + (x2 - x1) * t + (Math.random() - 0.5) * 2;
+  const y = y1 + (y2 - y1) * t + (Math.random() - 0.5) * 2;
+  ctx.lineTo(x, y);
+  }
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+  }
+</code>
+</body>
+</html>

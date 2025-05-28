@@ -1,0 +1,2 @@
+lsp: language server protocol
+dap: debug adapter protocol
